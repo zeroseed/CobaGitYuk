@@ -1,0 +1,90 @@
+{% extends "::base.html.twig" %}
+{% block body %}
+
+{% include "adminheader.html.twig" %}
+
+<!-- Container -->
+<div id="container">
+	<div class="shell">
+				
+
+		<br />
+		<!-- Main -->
+		<div id="main">
+			<div class="cl">&nbsp;</div>
+			<!-- Small Nav -->
+			<div class="small-nav">
+			<a href="{{ path('penerimaan') }}">Penerimaan</a>
+				<span>&gt;</span>
+				Detail Penerimaan
+			</div>
+			<!-- End Small Nav -->
+			
+			<!-- Content -->
+			<div id="content">
+				
+				<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<div class="box-head">
+						<h2 class="left">Detail Penerimaan Buku</h2>
+					</div>
+					<!-- End Box Head -->	
+
+					<!-- Table -->
+					<div class="table">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<th>No</th>
+								<th>Tanggal</th>
+								<th>Petugas</th>
+
+								<th>Judul</th>
+								<th>Penulis</th>
+								<th>Total</th>								
+							</tr>
+						 {% set no=0 %}	
+						 {% for pen in detailPenerimaan %}
+						 	{% set no=no + 1 %}
+							<tr>
+								<td>{{ no }}</td>
+								<td>{{ pen.getTanggal | date("m/d/Y") }}</td>
+								<td>{{ pen.getPenerimaan.getPetugas.getNama }}</td>
+								<td>{{ pen.getBuku.getJudul }}</td>
+								<td>{{ pen.getBuku.getPenulis }}</td>
+
+								<td>{{ pen.getTotal }}</td>
+
+							</tr>
+						{% endfor %}
+						</table>
+						
+						
+						<!-- Pagging -->
+						<div class="pagging">
+							<!-- cara menggunakan library knp_pagination -->
+							{{ knp_pagination_render(detailPenerimaan) }}
+
+						</div>
+						<!-- End Pagging -->
+						
+					</div>
+					<!-- Table -->
+					
+				</div>
+				<!-- End Box -->
+				
+
+			</div>
+			<!-- End Content -->
+			
+			
+			<div class="cl">&nbsp;</div>			
+		</div>
+		<!-- Main -->
+	</div>
+</div>
+<!-- End Container -->
+
+<!-- End Container -->
+{% endblock %}

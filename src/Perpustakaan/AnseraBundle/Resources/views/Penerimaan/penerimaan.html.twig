@@ -1,0 +1,151 @@
+{% extends "::base.html.twig" %}
+{% block body %}
+
+{% include "adminheader.html.twig" %}
+
+<!-- Container -->
+<div id="container">
+	<div class="shell">
+				
+		<!-- Message OK -->		
+		{% if success==true and method == "POST" %}
+		<div class="msg msg-ok">
+			<p><strong>Data kategori sudah disimpan</strong></p>
+		</div>
+		{% endif %}
+
+		<!-- End Message OK -->		
+
+		{% if success==false %}		
+		<!-- Message Error -->
+		<div class="msg msg-error">
+			<p><strong>{{ error }} </strong></p>
+		</div>
+		<!-- End Message Error -->
+		{% endif %}
+
+		<br />
+		<!-- Main -->
+		<div id="main">
+			<div class="cl">&nbsp;</div>
+			
+			<!-- Content -->
+			<div id="content">
+				
+				<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<div class="box-head">
+						<h2 class="left">Penerimaan Buku</h2>
+					</div>
+					<!-- End Box Head -->	
+
+					<!-- Table -->
+					<div class="table">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<th>No</th>
+								<th>Tanggal</th>
+								<th>Petugas</th>
+								<th>Total</th>
+								
+								<th>Aksi</th>
+							</tr>
+						 {% set no=0 %}	
+						 {% for pen in penerimaan %}
+						 	{% set no=no + 1 %}
+							<tr>
+								<td>{{ no }}</td>
+								<td>{{ pen.getTanggal | date("m/d/Y") }}</td>
+								<td>{{ pen.getPetugas.getNama }}</td>
+								<td>{{ pen.getTotal }}</td>
+
+								<td> <a href="{{ path('penerimaan_view',{'id_penerimaan':pen.id})}}">View</a></td>
+							</tr>
+						{% endfor %}
+						</table>
+						
+						
+						<!-- Pagging -->
+						<div class="pagging">
+							<!-- cara menggunakan library knp_pagination -->
+							{{ knp_pagination_render(penerimaan) }}
+
+						</div>
+						<!-- End Pagging -->
+						
+					</div>
+					<!-- Table -->
+					
+				</div>
+				<!-- End Box -->
+				
+				<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<div class="box-head">
+						<h2>Tambah Penerimaan</h2>
+					</div>
+					<!-- End Box Head -->
+					<!-- menentukan action url. jika ada id_kategori berarti arahkan ke url /penerimaan/edit -->
+					{% if app.request.get('id_penerimaan') %}
+						{% set url=path('penerimaan_edit',{'id_kategori':app.request.get('id_kategori')}) %}
+					{% else %}
+						{% set url=path('penerimaan') %}
+					{% endif %}
+
+					<form action="{{ url }}" method="post">
+						
+						<!-- Form -->
+						<div class="form">
+								<p>
+									<span class="req">max 100 symbols</span>
+									<label>Buku</h1><span>(Required Field)</span></label>
+									<select name="id_buku" class="field size1">
+
+									{% for bk in buku %}
+									{% if id_buku==bk.id %}
+										{% set var_selected='selected' %}
+									{% else %}
+										{% set var_selected="" %}
+
+									{% endif %}
+
+
+										<option value="{{ bk.id }}" {{ var_selected }}>{{ bk.judul }} / {{ bk.penulis }}
+									{% endfor %}
+									</select>
+								</p>	
+
+								<p>
+									<span class="req">max 100 symbols</span>
+									<label>Total <span>(Required Field)</span></label>
+									<input type="text" value="{{ total | default('') }}" name="total" class="field size1" />
+								</p>	
+
+							
+						</div>
+						<!-- End Form -->
+						
+						<!-- Form Buttons -->
+						<div class="buttons">
+							<input type="submit" class="button" value="SIMPAN" />
+						</div>
+						<!-- End Form Buttons -->
+					</form>
+				</div>
+				<!-- End Box -->
+
+			</div>
+			<!-- End Content -->
+			
+			
+			<div class="cl">&nbsp;</div>			
+		</div>
+		<!-- Main -->
+	</div>
+</div>
+<!-- End Container -->
+
+<!-- End Container -->
+{% endblock %}

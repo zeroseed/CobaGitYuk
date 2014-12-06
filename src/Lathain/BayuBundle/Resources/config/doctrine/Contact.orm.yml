@@ -1,0 +1,20 @@
+Lathain\BayuBundle\Entity\Contact:
+    type: entity
+    table: null
+    repositoryClass: Lathain\BayuBundle\Entity\ContactRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        nama:
+            type: string
+            length: 255
+        alamat:
+            type: string
+            length: 255
+        telp:
+            type: integer
+    lifecycleCallbacks: {  }

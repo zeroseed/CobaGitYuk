@@ -1,0 +1,147 @@
+{% extends "::base.html.twig" %}
+{% block body %}
+
+{% include "adminheader.html.twig" %}
+
+<!-- Container -->
+<div id="container">
+	<div class="shell">
+
+		{% if error is defined %}
+		<!-- Message Error -->
+		<div class="msg msg-error">
+			<p><strong>{{ error }}</strong></p>
+		</div>
+		<!-- End Message Error -->
+		{% endif %}
+
+		{% if ket==true %}
+				<!-- Message Error -->
+			<div class="msg msg-error">
+				<p><strong>Semua buku pinjaman, sudah dikembalikan</strong></p>
+			</div>
+			<!-- End Message Error -->
+		{% endif %}
+		<br />
+		<!-- Main -->
+		<div id="main">
+			<div class="cl">&nbsp;</div>
+			
+			<!-- Content -->
+			<div id="content">
+				
+				<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<div class="box-head">
+						<h2 class="left">Detail Buku Pinjaman - {{ namaAnggota }}</h2>
+					</div>
+					<!-- End Box Head -->	
+
+					<!-- Table -->
+					<div class="table">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<th>No</th>
+								<th>Judul Buku</th>
+								<th>Penulis</th>
+								<th>Tgl Pinjam</th>
+								<th>Tgl Kembali</th>
+								<th>Denda</th>
+							</tr>
+						{% set no=0 %}
+						 {% for dp in detailPeminjaman %}
+						  {% if dp is defined %}
+
+						 	{% set no=no+1 %}
+							<tr>
+								<td>{{ no }}</td>
+								<td>{{ dp.judul }}</td>
+								<td>{{ dp.penulis }}</td>
+								<td>{{ dp.tanggal_pinjam}}</td>
+								<td>{% if dp.tanggal_kembali is empty %} - {% else %}{{ dp.tanggal_kembali }}{% endif %}</td>
+
+								<th>Rp. {% if dp.denda > 0 %} {{ dp.denda }} {% else %} 0 {% endif %}</th>
+
+							</tr>
+						 {% endif %}
+						{% endfor %}
+						</table>
+						
+						
+						<!-- Pagging -->
+						<div class="pagging">
+							<!-- cara menggunakan library knp_pagination -->
+							{{ knp_pagination_render(detailPeminjaman) }}
+
+						</div>
+						<!-- End Pagging -->
+						
+					</div>
+					<!-- Table -->
+					
+				</div>
+				<!-- End Box -->
+				{% if ket==false %}
+				<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<div class="box-head">
+						<h2>Tambah Pengembalian Buku</h2>
+					</div>
+					<form action="{{ path('pengembalian_view',{'id_peminjaman':app.request.get('id_peminjaman')}) }}" method="post">
+						
+						<!-- Form -->
+						<div class="form">
+								<p>
+									<span class="req">max 100 symbols</span>
+									<label>Status Buku</h1><span>(Required Field)</span></label>
+									<select name="status" class="field size1">
+
+										<option value="mengembalikan" >Mengembalikan
+										<option value="memperpanjang" >Memperpanjang
+										<option value="rusak/hilang" >Rusak/Hilang
+									</select>
+								</p>	
+
+								<p>
+									<span class="req">max 100 symbols</span>
+									<label>Buku</h1><span>(Required Field)</span></label>
+									<select name="idBuku" class="field size1">
+
+									{% for bk in buku %}
+										{% if idBuku==bk.id %}
+											{% set var_selected='selected' %}
+										{% else %}
+											{% set var_selected="" %}
+
+										{% endif %}
+
+										<option value="{{ bk.id }}" {{ var_selected }}>{{ bk.judul }}
+									{% endfor %}
+									</select>
+								</p>	
+						</div>
+						<!-- End Form -->
+							<!-- Form Buttons -->
+							<div class="buttons">
+								<input type="submit" class="button" value="SIMPAN" />
+							</div>
+							<!-- End Form Buttons -->
+					</form>
+				</div>
+				<!-- End Box -->
+				{% endif %}
+			</div>
+			<!-- End Content -->
+			
+			
+			<div class="cl">&nbsp;</div>			
+		</div>
+		<!-- Main -->
+	</div>
+</div>
+<!-- End Container -->
+
+<!-- End Container -->
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "::base.html.twig" %}
+        {% block body %}
+
+{% include "loginheader.html.twig" %}
+
+<!-- Container -->
+<div id="container">
+	<div class="shell">
+		
+		
+		<!-- Main -->
+		<div id="main">
+			<div class="cl">&nbsp;</div>
+			
+			<!-- Content -->
+			<div id="content">
+			  {% if success !=true %}
+				<div class="msg msg-error">
+					<p><strong>{{ error }} </strong></p>
+					<a class="close" href="#">close</a>
+				</div>
+			  {% endif %}
+								<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+				  <div class="box-head">
+					  <h2>LOGIN </h2>
+					</div>
+					<form action="{{ path('login')}}" method="post">
+						
+						<!-- Form -->
+						<div class="form">
+								<p>
+									<span class="req">max 100 symbols</span>
+									<label>Email<span>(Required Field)</span></label>
+									<input type="text" name="email" value="{{ email | default('')}}" class="field size1" />
+									<label>PASSWORD<span>(Required Field)</span></label>
+									<input type="password" name="password" value="{{ password | default('') }}" class="field size1" />
+								</p>	
+						</div>
+						<!-- End Form -->
+						
+						<!-- Form Buttons -->
+						<div class="buttons">
+							<input type="submit" class="button" value="LOGIN" />
+						</div>
+						<!-- End Form Buttons -->
+					</form>
+				</div>
+				<!-- End Box -->
+
+					
+				</div>
+				<!-- End Box -->
+				
+
+			</div>
+			<!-- End Content -->
+			
+			
+			<div class="cl">&nbsp;</div>			
+		</div>
+		<!-- Main -->
+	</div>
+</div>
+<!-- End Container -->
+{% endblock %}

@@ -1,0 +1,11 @@
+{% for kategori in kategoriBuku %}
+	{{ kategori.getNamaKategori }} <br/>
+{% endfor %}
+
+
+{% set nama='Raline Shah' %}
+{{ nama }}
+
+
+
+{{ date() | date_modify('+2days') | date('m/d/Y') }}

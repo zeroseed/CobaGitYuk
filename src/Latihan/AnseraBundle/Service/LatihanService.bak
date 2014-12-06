@@ -1,0 +1,51 @@
+<?php
+
+namespace Latihan\AnseraBundle\Service;
+
+use JMS\DiExtraBundle\Annotation as DI;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Latihan\AnseraBundle\Utility\HashGenerator;
+
+/**
+ * @DI\Service("lat.service.latihan")
+ * @DI\Tag("security.secure_service")
+ */
+class LatihanServicebak
+{
+    protected $hashGenerator;
+    protected $mailer;
+
+    /**
+     * @DI\InjectParams({
+	 *     "hashGenerator" = @DI\Inject("lat.utility.hash_generator"),
+     *     "mailer" = @DI\Inject("lat.service.mailer")	 
+     * })
+     */
+    public function __construct(HashGenerator $hashGenerator,MailerService $mailer) {
+		$this->hashGenerator = $hashGenerator;
+   		$this->mailer = $mailer;
+
+		
+    }
+
+    public function sendEmail(){
+                
+        $email=array("ansera.test@gmail.com");
+        
+        $subject="Test email";
+        $body ="<h1> Test Kirim Email </h1>";
+        $body .= " Hi! This is email from localhost";
+        
+        $mail=$this->mailer->sendTemplatelessEmail($email,$subject,$body);
+        return true;                
+    }
+
+	public function perkalian($bil1,$bil2){
+		$hasil=$bil1 * $bil2;
+		return $hasil;
+	}
+
+	public function getRandomHash(){
+		  return $this->hashGenerator->generateRandomHash();
+	}
+}

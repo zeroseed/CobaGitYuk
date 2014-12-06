@@ -1,0 +1,7 @@
+parameters:
+#    lathain_bayu.example.class: Lathain\BayuBundle\Example
+
+services:
+#    lathain_bayu.example:
+#        class: %lathain_bayu.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

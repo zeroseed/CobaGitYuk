@@ -1,0 +1,9 @@
+{% if success !=true %}
+	<span style='color:red'>{{ errorMessage }}</span>
+{% endif %}
+
+<form method="POST">
+Nama :	<input type="text" name="nama" value="{{ nama | default('') }}"></input> <br/>
+Pekerjaan	<input type="text" name="pekerjaan" value="{{ pekerjaan | default('') }}"></input> <br/>
+	<input type="submit" value="SIMPAN">
+</form>

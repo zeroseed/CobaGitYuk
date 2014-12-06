@@ -1,0 +1,131 @@
+{% extends "::base.html.twig" %}
+{% block body %}
+
+{% include "adminheader.html.twig" %}
+
+<!-- Container -->
+<div id="container">
+	<div class="shell">
+				
+		<!-- Message OK -->		
+		{% if success==true and method == "POST" %}
+		<div class="msg msg-ok">
+			<p><strong>Data kategori sudah disimpan</strong></p>
+		</div>
+		{% endif %}
+
+		<!-- End Message OK -->		
+
+		{% if success==false %}		
+		<!-- Message Error -->
+		<div class="msg msg-error">
+			<p><strong>{{ error }} </strong></p>
+		</div>
+		<!-- End Message Error -->
+		{% endif %}
+
+		<br />
+		<!-- Main -->
+		<div id="main">
+			<div class="cl">&nbsp;</div>
+			
+			<!-- Content -->
+			<div id="content">
+				
+				<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<div class="box-head">
+						<h2 class="left">Kategori</h2>
+					</div>
+					<!-- End Box Head -->	
+
+					<!-- Table -->
+					<div class="table">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<th>No</th>
+								<th>Nama Kategori</th>
+								<th>No Rak</th>
+								<th width="110" class="ac">Aksi</th>
+							</tr>
+						 {% for kategori in categories %}
+							<tr>
+								<td>{{ kategori.no }}</td>
+								<td>{{ kategori.namaKategori }}</td>
+								<td>{{ kategori.noRak }}</td>
+								<td><a onclick="return confirm('Anda yakin akan menghapus record ini?')" href="{{ path('kategori_delete',{'id_kategori':kategori.id})}}" class="ico del">Delete</a><a href="{{ path('kategori_edit',{'id_kategori':kategori.id})}}" class="ico edit">Edit</a></td>
+							</tr>
+						{% endfor %}
+						</table>
+						
+						
+						<!-- Pagging -->
+						<div class="pagging">
+							<!-- cara menggunakan library knp_pagination -->
+							{{ knp_pagination_render(categories) }}
+
+						</div>
+						<!-- End Pagging -->
+						
+					</div>
+					<!-- Table -->
+					
+				</div>
+				<!-- End Box -->
+				
+				<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<div class="box-head">
+						<h2>Tambah Kategori</h2>
+					</div>
+					<!-- End Box Head -->
+					<!-- menentukan action url. jika ada id_kategori berarti arahkan ke url /kategori/edit -->
+					{% if app.request.get('id_kategori') %}
+						{% set url=path('kategori_edit',{'id_kategori':app.request.get('id_kategori')}) %}
+					{% else %}
+						{% set url=path('kategori') %}
+					{% endif %}
+
+					<form action="{{ url }}" method="post">
+						
+						<!-- Form -->
+						<div class="form">
+								<p>
+									<span class="req">max 100 symbols</span>
+									<label>Nama Kategori <span>(Required Field)</span></label>
+									<input type="text" name="namaKategori" value="{{ namaKategori | default('') }}"class="field size1" />
+								</p>	
+								<p>
+									<span class="req">max 100 symbols</span>
+									<label>No Rak <span>(Required Field)</span></label>
+									<input type="text" value="{{ noRak | default('') }}" name="noRak" class="field size1" />
+								</p>	
+
+							
+						</div>
+						<!-- End Form -->
+						
+						<!-- Form Buttons -->
+						<div class="buttons">
+							<input type="submit" class="button" value="SIMPAN" />
+						</div>
+						<!-- End Form Buttons -->
+					</form>
+				</div>
+				<!-- End Box -->
+
+			</div>
+			<!-- End Content -->
+			
+			
+			<div class="cl">&nbsp;</div>			
+		</div>
+		<!-- Main -->
+	</div>
+</div>
+<!-- End Container -->
+
+<!-- End Container -->
+{% endblock %}

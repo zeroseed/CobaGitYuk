@@ -1,0 +1,62 @@
+{% extends "::base.html.twig" %}
+{% block body %}
+
+{% include "adminheader.html.twig" %}
+
+<!-- Container -->
+<div id="container">
+	<div class="shell">
+				
+
+		<br />
+		<!-- Main -->
+		<div id="main">
+			<div class="cl">&nbsp;</div>
+			
+			<!-- Content -->
+			<div id="content">
+								
+				<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<div class="box-head">
+						<h2>Tanya</h2>
+					</div>
+
+					<form method="post">
+						
+						<!-- Form -->
+						<div class="form">
+								<p>
+									<label>Tambah Peminjaman Buku ? </label>
+								</p>	
+							
+						</div>
+						<!-- End Form -->
+						
+						<!-- Form Buttons -->
+						<div class="buttons">
+							<a href="{{ path('detail_peminjaman') }}"><input type="button" class="button" value="YA" /></a>
+							<a href="{{ path('peminjaman') }}">
+							<input type="button" class="button" value="TIDAK" />
+							</a>
+						</div>
+
+						<!-- End Form Buttons -->
+					</form>
+				</div>
+				<!-- End Box -->
+
+			</div>
+			<!-- End Content -->
+			
+			
+			<div class="cl">&nbsp;</div>			
+		</div>
+		<!-- Main -->
+	</div>
+</div>
+<!-- End Container -->
+
+<!-- End Container -->
+{% endblock %}

@@ -1,0 +1,13 @@
+<form action="{{ path('testpengembalian') }}" method="post">
+ID BUKU :	<input type="text" name="idBuku" value="10"> <br/>
+ID ANGGOTA :	<input type="text" name="idAnggota" value="8"><br/>
+ID PEMINJAMAN :	<input type="text" name="idPeminjaman" value="10"> <br/>
+Status :<select name="status" class="field size1">
+			<option value="mengembalikan" >Mengembalikan
+			<option value="memperpanjang" >Memperpanjang
+			<option value="rusak/hilang" >Rusak/Hilang
+		</select> <br/>
+
+ID PETUGAS :	<input type="text" name="idPetugas" value="1"> <br/>
+	<input type="submit" value="SIMPAN">
+</form>

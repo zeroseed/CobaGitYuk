@@ -1,0 +1,119 @@
+{% extends "::base.html.twig" %}
+{% block body %}
+
+{% include "adminheader.html.twig" %}
+
+<!-- Container -->
+<div id="container">
+	<div class="shell">
+				
+
+		<br />
+		<!-- Main -->
+		<div id="main">
+			<div class="cl">&nbsp;</div>
+			
+			<!-- Content -->
+			<div id="content">
+
+				<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<div class="box-head">
+						<h2>Detail Peminjaman</h2>
+					</div>
+					<form action="{{ path('detail_peminjaman') }}" method="post">
+						
+						<!-- Form -->
+						<div class="form">
+								<p>
+									<span class="req">max 100 symbols</span>
+									<label>Tanggal Pinjam</label>
+									<input type="text" name="tanggalPinjam" readonly value="{{ tanggalPinjam | date("m/d/Y") }}"class="field size1" />
+								</p>	
+
+								<p>
+									<span class="req">max 100 symbols</span>
+									<label>Nama Anggota</label>
+									<input type="text" name="nama" readonly value="{{ namaAnggota | default('') }}"class="field size1" />
+								</p>	
+								<p>
+									<span class="req">max 100 symbols</span>
+									<label>Nama Petugas</label>
+									<input type="text" name="namaPetugas" readonly value="{{ namaPetugas | default('') }}"class="field size1" />
+								</p>	
+
+						</div>
+						<!-- End Form -->
+						
+					</form>
+				</div>
+				<!-- End Box -->
+
+				
+				<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<div class="box-head">
+						<h2 class="left">List Buku</h2>
+					</div>
+					<!-- End Box Head -->	
+
+					<!-- Table -->
+					<div class="table">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<th>No</th>
+								<th>Judul Buku</th>
+								<th>Penulis</th>
+								<th>Tgl Pinjam</th>
+								<th>Tgl Kembali</th>
+								<th>Denda</th>
+							</tr>
+						{% set no=0 %}
+						 {% for dp in detailPeminjaman %}
+						  {% if dp is defined %}
+
+						 	{% set no=no+1 %}
+							<tr>
+								<td>{{ no }}</td>
+								<td>{{ dp.judul }}</td>
+								<td>{{ dp.penulis }}</td>
+								<td>{{ dp.tanggal_pinjam}}</td>
+								<td>{% if dp.tanggal_kembali is empty %} - {% else %}{{ dp.tanggal_kembali }}{% endif %}</td>
+
+								<th>Rp. {% if dp.denda > 0 %} {{ dp.denda }} {% else %} 0 {% endif %}</th>
+
+							</tr>
+						 {% endif %}
+						{% endfor %}
+						</table>
+						
+						
+						<!-- Pagging -->
+						<div class="pagging">
+							<!-- cara menggunakan library knp_pagination -->
+							{{ knp_pagination_render(detailPeminjaman) }}
+
+						</div>
+						<!-- End Pagging -->
+						
+					</div>
+					<!-- Table -->
+					
+				</div>
+				<!-- End Box -->
+				
+			</div>
+			<!-- End Content -->
+			
+			
+			<div class="cl">&nbsp;</div>			
+		</div>
+		<!-- Main -->
+	</div>
+</div>
+<!-- End Container -->
+
+<!-- End Container -->
+{% endblock %}

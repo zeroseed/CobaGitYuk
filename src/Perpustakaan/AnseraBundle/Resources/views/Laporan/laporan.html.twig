@@ -1,0 +1,75 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+
+{% include "adminheader.html.twig" %}
+
+<!-- Container -->
+<div id="container">
+	<div class="shell">
+				
+		<br />
+		<!-- Main -->
+		<div id="main">
+			<div class="cl">&nbsp;</div>
+			
+			<!-- Content -->
+			<div id="content">
+								
+				<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<div class="box-head">
+						<h2>Laporan</h2>
+					</div>
+
+					<form action="{{ path('laporan') }}" method="post">
+						
+						<div class="form">
+								<!-- Form -->
+								<p>
+									<label>Jenis Laporan</h1></label>
+									<select name="jenis" id="jenis" class="field size1" onchange="getJenisLaporan(this);">
+
+										<option value="1" >Laporan Buku
+										<option value="2" >Laporan Peminjaman
+										<option value="3" >Laporan Pengembalian
+									</select>
+								</p>	
+
+								<p id="tanggal1">
+									<span class="req">dd-mm-yyyy</span>
+									<label>Tanggal Awal<span>(Required Field)</span></label>
+									<input type="text" name="tglAwal" value="{{ tglAwal | default('') }}"class="field size1" />
+								</p>	
+								<p id="tanggal2">																	<span class="req">dd-mm-yyyy</span>
+									<label>Tanggal Akhir<span>(Required Field)</span></label>
+									<input type="text" value="{{ tglAkhir | default('') }}" name="tglAkhir" class="field size1" />
+								</p>	
+
+							
+						</div>
+						<!-- End Form -->
+						
+						<!-- Form Buttons -->
+						<div class="buttons">
+							<input type="submit" class="button" value="LIHAT LAPORAN" />
+						</div>
+						<!-- End Form Buttons -->
+					</form>
+				</div>
+				<!-- End Box -->
+
+			</div>
+			<!-- End Content -->
+			
+			
+			<div class="cl">&nbsp;</div>			
+		</div>
+		<!-- Main -->
+	</div>
+</div>
+<!-- End Container -->
+
+<!-- End Container -->
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "::base.html.twig" %}
+{% block body %}
+
+{% include "adminheader.html.twig" %}
+
+<!-- Container -->
+<div id="container">
+	<div class="shell">
+				
+		<!-- Main -->
+		<div id="main">
+			<div class="cl">&nbsp;</div>
+			
+			<!-- Content -->
+			<div id="content">
+				
+				<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<div class="box-head">
+						<h2 class="left">Pengembalian - List Peminjaman</h2>
+					</div>
+					<!-- End Box Head -->	
+						{% set no=0 %}
+
+					<!-- Table -->
+					<div class="table">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<th>No</th>
+								<th>Tanggal</th>
+								<th>Petugas</th>
+								<th>Anggota</th>
+								<th>Aksi</th>
+							</tr>
+						 {% for pem in peminjaman %}
+	 						{% set no=no+1 %}
+							<tr>
+								<td>{{ no }}</td>
+								<td>{{ pem.getTanggalPinjam | date('d/m/Y') }}</td>
+								<td>{{ pem.getPetugas.getNama }}</td>
+								<td>{{ pem.getAnggota.getNama }}</td>
+								<td><a href="{{ path('pengembalian_view',{'id_peminjaman':pem.getId})}}">Kembalikan Buku</a></td>
+							</tr>
+						{% endfor %}
+						</table>
+						
+						
+						<!-- Pagging -->
+						<div class="pagging">
+							<!-- cara menggunakan library knp_pagination -->
+							{{ knp_pagination_render(peminjaman) }}
+
+						</div>
+						<!-- End Pagging -->
+						
+					</div>
+					<!-- Table -->
+					
+				</div>
+				<!-- End Box -->
+				
+
+			</div>
+			<!-- End Content -->
+			
+			
+			<div class="cl">&nbsp;</div>			
+		</div>
+		<!-- Main -->
+	</div>
+</div>
+<!-- End Container -->
+
+<!-- End Container -->
+{% endblock %}

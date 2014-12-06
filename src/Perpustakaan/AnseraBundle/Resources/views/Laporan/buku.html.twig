@@ -1,0 +1,66 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Laporan Buku</title>
+</head>
+
+<body>
+
+<div align="center">
+	<table width="100%">
+		<tr>
+			<td>
+			<p align="center"><b><font face="Calibri" size="4">Laporan Buku</font></b></td>
+		</tr>
+		<tr>
+			<td>
+			<p align="center"><b><font size="5">Perpustakaan Ansera</font></b></td>
+		</tr>
+		<tr>
+			<td>
+			<p align="center"><font size="2" face="Book Antiqua">Jln</font><font size="2" face="Book Antiqua">. Tumaritist No 258 Dukuh Semar - Cirebon 45142</font></td>
+		</tr>
+	</table></div>
+<p>&nbsp;</p>
+
+<table border="1" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td align="center"><b><font face="Calibri">NO</font></b></td>
+		<td align="center"><b><font face="Calibri">Judul</font></b></td>
+		<td align="center"><b><font face="Calibri">Penerbit</font></b></td>
+		<td align="center"><b><font face="Calibri">Penulis</font></b></td>
+		<td align="center"><b><font face="Calibri">Tahun Penerbit</font></b></td>
+		<td align="center"><b><font face="Calibri">ISBN</font></b></td>
+		<td align="center"><b><font face="Calibri">Total Buku</font></b></td>
+		<td align="center"><b><font face="Calibri">Total Hilang</font></b></td>
+		<td align="center"><b><font face="Calibri">Total Keluar</font></b></td>
+		<td align="center"><b><font face="Calibri">Total Tersedia</font></b></td>
+	</tr>
+	{% set no=0 %}
+	{% for lap in laporan %}
+	{% set no=no+1 %}
+	<tr>
+		<td>{{ no }}</td>
+		<td>{{ lap.getJudul }}</td>
+		<td>{{ lap.getPenerbit }}</td>
+		<td>{{ lap.getPenulis }}</td>
+		<td>{{ lap.getTahunTerbit }}</td>
+		<td>{{ lap.getISBN }}</td>
+		<td>{% if lap.getTotal %} {{ lap.getTotal }} {% else %} 0 {% endif %}</td>
+		<td>{% if lap.getRusakHilang %} {{ lap.getRusakHilang }} {% else %} 0 {% endif %}</td>
+		<td>{% if lap.getTotalKeluar %} {{ lap.getTotalKeluar }} {% else %} 0 {% endif %}</td>
+		<td>{% if lap.getTotalTersedia %} {{ lap.getTotalTersedia }} {% else %} 0 {% endif %}</td>
+
+	</tr>
+	{% endfor %}
+
+</table>
+
+<p align="right"><b>&nbsp;<font face="Calibri">Cirebon, 19 Juni 2014</font></b></p>
+<p align="right"><b><font face="Calibri">( Anita Sesar Ria )</font></b></p>
+
+</body>
+
+</html>

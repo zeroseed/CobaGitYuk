@@ -1,0 +1,7 @@
+parameters:
+#    latihan_ansera.example.class: Latihan\AnseraBundle\Example
+
+services:
+#    latihan_ansera.example:
+#        class: %latihan_ansera.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

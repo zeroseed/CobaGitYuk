@@ -1,0 +1,116 @@
+{% extends "::base.html.twig" %}
+{% block body %}
+
+{% include "adminheader.html.twig" %}
+
+<!-- Container -->
+<div id="container">
+	<div class="shell">
+				
+		<!-- Main -->
+		<div id="main">
+			<div class="cl">&nbsp;</div>
+			
+			<!-- Content -->
+			<div id="content">
+				
+				<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<div class="box-head">
+						<h2 class="left">Peminjaman</h2>
+					</div>
+					<!-- End Box Head -->	
+						{% set no=0 %}
+
+					<!-- Table -->
+					<div class="table">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<th>No</th>
+								<th>Tanggal</th>
+								<th>Petugas</th>
+								<th>Anggota</th>
+								<th>Aksi</th>
+							</tr>
+						 {% for pem in peminjaman %}
+	 						{% set no=no+1 %}
+							<tr>
+								<td>{{ no }}</td>
+								<td>{{ pem.getTanggalPinjam | date('d/m/Y') }}</td>
+								<td>{{ pem.getPetugas.getNama }}</td>
+								<td>{{ pem.getAnggota.getNama }}</td>
+								<td><a href="{{ path('peminjaman_view',{'id_peminjaman':pem.getId})}}">View</a></td>
+							</tr>
+						{% endfor %}
+						</table>
+						
+						
+						<!-- Pagging -->
+						<div class="pagging">
+							<!-- cara menggunakan library knp_pagination -->
+							{{ knp_pagination_render(peminjaman) }}
+
+						</div>
+						<!-- End Pagging -->
+						
+					</div>
+					<!-- Table -->
+					
+				</div>
+				<!-- End Box -->
+				
+				<!-- Box -->
+				<div class="box">
+					<!-- Box Head -->
+					<div class="box-head">
+						<h2>Pilih Anggota</h2>
+					</div>
+
+					<form action="{{ path('peminjaman') }}" method="post">
+						<!-- Form -->
+						<div class="form">
+								<p>
+									<span class="req">max 100 symbols</span>
+									<label>Anggota</h1><span>(Required Field)</span></label>
+									<select name="idAnggota" class="field size1">
+
+									{% for ag in anggota %}
+									
+									{% if idAnggota==ag.id %}
+										{% set var_selected='selected' %}
+									{% else %}
+										{% set var_selected="" %}
+
+									{% endif %}
+
+
+										<option value="{{ ag.id }}" {{ var_selected }}>{{ ag.nama }}
+									{% endfor %}
+									</select>
+								</p>	
+						</div>
+						<!-- End Form -->
+						
+						<!-- Form Buttons -->
+						<div class="buttons">
+							<input type="submit" class="button" value="NEXT >>" />
+						</div>
+						<!-- End Form Buttons -->
+					</form>
+				</div>
+				<!-- End Box -->
+
+			</div>
+			<!-- End Content -->
+			
+			
+			<div class="cl">&nbsp;</div>			
+		</div>
+		<!-- Main -->
+	</div>
+</div>
+<!-- End Container -->
+
+<!-- End Container -->
+{% endblock %}
